@@ -5,12 +5,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,6 +21,7 @@ import com.sena.biblioteca.ui.componentes.BotonGrande
 import com.sena.biblioteca.ui.componentes.DatoFila
 import com.sena.biblioteca.ui.componentes.PortadaLibro
 import com.sena.biblioteca.ui.componentes.Tarjeta
+import com.sena.biblioteca.ui.section.NuevaFechaSection
 import com.sena.biblioteca.ui.theme.Fondo
 import com.sena.biblioteca.ui.theme.Naranja
 
@@ -59,18 +57,12 @@ fun RenovarReservaScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Tarjeta {
-            DatoFila(etiqueta = "Reserva Actual:", valor = "📅 $fechaReserva")
-            Spacer(modifier = Modifier.height(12.dp))
-            // Campo de texto: cada letra que escribe el usuario actualiza fechaNueva
-            OutlinedTextField(
-                value = fechaNueva,
-                onValueChange = { nuevoValor -> fechaNueva = nuevoValor },
-                label = { Text(text = "Nueva Fecha (dd/mm/aaaa)") },
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
+        // La section muestra el campo; cada letra escrita llega aquí y actualiza fechaNueva
+        NuevaFechaSection(
+            fechaReserva = fechaReserva,
+            fechaNueva = fechaNueva,
+            onFechaNuevaChange = { nuevoValor -> fechaNueva = nuevoValor }
+        )
 
         Spacer(modifier = Modifier.height(24.dp))
 
