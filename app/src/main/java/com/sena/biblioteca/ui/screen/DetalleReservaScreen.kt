@@ -2,13 +2,11 @@ package com.sena.biblioteca.ui.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,10 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.sena.biblioteca.ui.componentes.BarraSuperior
 import com.sena.biblioteca.ui.componentes.BotonGrande
-import com.sena.biblioteca.ui.componentes.DatoFila
-import com.sena.biblioteca.ui.componentes.EtiquetaEstado
-import com.sena.biblioteca.ui.componentes.PortadaLibro
-import com.sena.biblioteca.ui.componentes.Tarjeta
+import com.sena.biblioteca.ui.section.DatosReservaSection
 import com.sena.biblioteca.ui.theme.Fondo
 import com.sena.biblioteca.ui.theme.GrisTexto
 import com.sena.biblioteca.ui.theme.Rojo
@@ -36,13 +31,6 @@ fun DetalleReservaScreen(
     onCancelar: () -> Unit,
     onVolver: () -> Unit,
 ) {
-    val autor = when (nombreLibro) {
-        "Clean Code" -> "Robert C. Martin"
-        "Kotlin para Android" -> "Antonio Leiva"
-        "Arquitectura de Software" -> "Mark Richards"
-        else -> "Google Developers"
-    }
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -63,23 +51,11 @@ fun DetalleReservaScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Tarjeta {
-            Row {
-                PortadaLibro(nombreLibro = nombreLibro, tamano = 80)
-                Spacer(modifier = Modifier.width(12.dp))
-                Column {
-                    DatoFila(etiqueta = "Nombre:", valor = nombreLibro)
-                    DatoFila(etiqueta = "Autor:", valor = autor)
-                }
-            }
-            Spacer(modifier = Modifier.height(12.dp))
-            DatoFila(etiqueta = "Fecha Reserva:", valor = fechaReserva)
-            DatoFila(etiqueta = "Código:", valor = codigoReserva)
-            Row {
-                Text(text = "Estado:", color = GrisTexto, modifier = Modifier.width(130.dp))
-                EtiquetaEstado(estado = "Activa", color = Verde)
-            }
-        }
+        DatosReservaSection(
+            nombreLibro = nombreLibro,
+            fechaReserva = fechaReserva,
+            codigoReserva = codigoReserva
+        )
 
         Spacer(modifier = Modifier.height(12.dp))
         Text(
